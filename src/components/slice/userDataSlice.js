@@ -1,10 +1,10 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 
 const REGISTER_URL =
-  "http://sour-curtain-production.up.railway.app/api/v1/auth/register";
+  "https://sour-curtain-production.up.railway.app/api/v1/auth/register";
 
 const LOGIN_URL =
-  "http://sour-curtain-production.up.railway.app/api/v1/auth/login";
+  "https://sour-curtain-production.up.railway.app/api/v1/auth/login";
 
 export const registerUser = createAsyncThunk(
   "userData/registerUser",
