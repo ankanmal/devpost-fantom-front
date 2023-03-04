@@ -97,7 +97,7 @@ const LandingPage = () => {
     if (walletadd !== null) {
       navigate("/givedetails");
     }
-  }, [walletadd]);
+  }, [navigate, walletadd]);
   const connectWalletandLogin = async () => {
     //const provider = new ethers.providers.Web3Provider(window.ethereum);
     try {
@@ -122,7 +122,7 @@ const LandingPage = () => {
     if (userIdState !== null) {
       navigate("/main");
     }
-  });
+  }, [navigate, userIdState]);
 
   return (
     <div className="App">
