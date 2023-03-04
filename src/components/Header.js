@@ -5,8 +5,8 @@ import { userId } from "./slice/userDataSlice";
 
 const Header = () => {
   const userIdState = useSelector(userId);
-  const fname = useSelector((state) => state.userData.firstName);
-  const lname = useSelector((state) => state.userData.lastName);
+  //const fname = useSelector((state) => state.userData.firstName);
+  //const lname = useSelector((state) => state.userData.lastName);
   return (
     <>
       {userIdState === null ? (

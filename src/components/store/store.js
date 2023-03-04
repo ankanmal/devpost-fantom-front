@@ -1,7 +1,7 @@
 import { configureStore } from "@reduxjs/toolkit";
 import userDataSlice from "../slice/userDataSlice";
 import { persistReducer, persistStore } from "redux-persist";
-import storage from "redux-persist/lib/storage";
+//import storage from "redux-persist/lib/storage";
 import sessionStorage from "redux-persist/es/storage/session";
 
 const persistConfig = {
