@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { redirect, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 //import { ethers } from "ethers";
 import { loginUser, updateWalletAddress, userId } from "./slice/userDataSlice";
 import { useDispatch, useSelector } from "react-redux";
