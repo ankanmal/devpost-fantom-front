@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { useNavigate } from "react-router-dom";
+import { redirect, useNavigate } from "react-router-dom";
 //import { ethers } from "ethers";
 import { loginUser, updateWalletAddress, userId } from "./slice/userDataSlice";
 import { useDispatch, useSelector } from "react-redux";
@@ -86,13 +86,18 @@ const LandingPage = () => {
       dispatch(updateWalletAddress(accounts[0]));
       // setAccountBalance(bal);
       setIsConnected(true);
+      if (walletadd !== null) {
+        redirect("/givedetails");
+      }
     } catch (error) {
       setIsConnected(false);
     }
+  };
+  useEffect(() => {
     if (walletadd !== null) {
       navigate("/givedetails");
     }
-  };
+  }, [walletadd]);
   const connectWalletandLogin = async () => {
     //const provider = new ethers.providers.Web3Provider(window.ethereum);
     try {
@@ -113,10 +118,11 @@ const LandingPage = () => {
       setIsConnected(false);
     }
   };
-
-  if (userIdState !== null) {
-    navigate("/main");
-  }
+  useEffect(() => {
+    if (userIdState !== null) {
+      navigate("/main");
+    }
+  });
 
   return (
     <div className="App">
