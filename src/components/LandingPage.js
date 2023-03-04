@@ -47,15 +47,12 @@ import { useDispatch, useSelector } from "react-redux";
 
 const LandingPage = () => {
   const [haveMetamask, sethaveMetamask] = useState(false);
-  // const [accountAddress, setAccountAddress] = useState(null);
-  // const [accountBalance, setAccountBalance] = useState("");
+  const [isSigningUp, setIsSigningUp] = useState(false);
   const [isConnected, setIsConnected] = useState(false);
   const navigate = useNavigate();
   const { ethereum } = window;
   const walletadd = useSelector((state) => state.userData.walletAdd);
   const userIdState = useSelector(userId);
-  console.log(userIdState);
-  console.log(walletadd);
 
   const dispatch = useDispatch();
 
@@ -66,13 +63,11 @@ const LandingPage = () => {
       if (ethereum) {
         sethaveMetamask(true);
       }
-      //sethaveMetamask(true);
     };
     checkMetamaskAvailability();
   }, []);
 
-  const connectWalletandSingUp = async () => {
-    //const provider = new ethers.providers.Web3Provider(window.ethereum);
+  const connectWallet = async () => {
     try {
       if (!ethereum) {
         sethaveMetamask(false);
@@ -80,49 +75,38 @@ const LandingPage = () => {
       const accounts = await ethereum.request({
         method: "eth_requestAccounts",
       });
-      //let balance = await provider.getBalance(accounts[0]);
-      //let bal = ethers.utils.formatEther(balance);
-
       dispatch(updateWalletAddress(accounts[0]));
-      // setAccountBalance(bal);
       setIsConnected(true);
-      if (walletadd !== null) {
-        redirect("/givedetails");
-      }
     } catch (error) {
       setIsConnected(false);
     }
   };
+
   useEffect(() => {
-    if (walletadd !== null) {
-      navigate("/givedetails");
-    }
-  }, [navigate, walletadd]);
-  const connectWalletandLogin = async () => {
-    //const provider = new ethers.providers.Web3Provider(window.ethereum);
-    try {
-      if (!ethereum) {
-        sethaveMetamask(false);
+    if (isConnected && walletadd !== null) {
+      if (isSigningUp) {
+        navigate("/givedetails");
+      } else {
+        dispatch(loginUser(walletadd));
       }
-      const accounts = await ethereum.request({
-        method: "eth_requestAccounts",
-      });
-      // let balance = await provider.getBalance(accounts[0]);
-      // let bal = ethers.utils.formatEther(balance);
-
-      dispatch(updateWalletAddress(accounts[0]));
-      dispatch(loginUser(accounts[0]));
-      //setAccountBalance(bal);
-      setIsConnected(true);
-    } catch (error) {
-      setIsConnected(false);
     }
-  };
+  }, [navigate, isConnected, walletadd, isSigningUp, dispatch]);
+
   useEffect(() => {
     if (userIdState !== null) {
       navigate("/main");
     }
   }, [navigate, userIdState]);
+
+  const handleSignUp = () => {
+    setIsSigningUp(true);
+    connectWallet();
+  };
+
+  const handleLogin = () => {
+    setIsSigningUp(false);
+    connectWallet();
+  };
 
   return (
     <div className="App">
@@ -142,10 +126,10 @@ const LandingPage = () => {
               <p className="info">🎉 Connected Successfully</p>
             ) : (
               <>
-                <button className="btn" onClick={connectWalletandSingUp}>
+                <button className="btn" onClick={handleSignUp}>
                   SignUp With Wallet
                 </button>
-                <button className="btn" onClick={connectWalletandLogin}>
+                <button className="btn" onClick={handleLogin}>
                   Login With Wallet
                 </button>
               </>
