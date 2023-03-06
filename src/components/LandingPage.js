@@ -117,13 +117,9 @@ const LandingPage = () => {
               <div className="card">
                 <div className="card-row">
                   <h3>Wallet Address:{walletadd}</h3>
+                  <p className="info">🎉 Connected Successfully</p>
                 </div>
               </div>
-            ) : (
-              <p>Logo is here</p>
-            )}
-            {isConnected ? (
-              <p className="info">🎉 Connected Successfully</p>
             ) : (
               <>
                 <button className="btn" onClick={handleSignUp}>
