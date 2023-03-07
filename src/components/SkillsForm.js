@@ -11,6 +11,7 @@ const MyTextInput = ({ label, ...props }) => {
   // useField() returns [formik.getFieldProps(), formik.getFieldMeta()]
   // which we can spread on <input> and alse replace ErrorMessage entirely.
   const animated = makeAnimated();
+  // eslint-disable-next-line
   const [fields, meta, helpers] = useField(props);
   return (
     <>
