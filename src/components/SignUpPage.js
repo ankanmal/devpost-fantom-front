@@ -208,7 +208,7 @@ const SignupForm = () => {
 
 const SignUpPage = () => {
   return (
-    <div className="bg-[#282c34] h-screen pt-14 overscroll-none ">
+    <div className="bg-[#282c34] h-[92.5vh] pt-14  ">
       <SignupForm />
     </div>
   );

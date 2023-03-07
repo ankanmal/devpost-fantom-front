@@ -9,6 +9,7 @@ import { Provider } from "react-redux";
 import { store, persistor } from "./components/store/store";
 import SignUpPage from "./components/SignUpPage";
 import { PersistGate } from "redux-persist/integration/react";
+import ProfilePage from "./components/ProfilePage";
 
 function App() {
   const appRouter = createBrowserRouter([
@@ -27,6 +28,10 @@ function App() {
         {
           path: "/main",
           element: <Main />,
+        },
+        {
+          path: "/profile",
+          element: <ProfilePage />,
         },
         {
           path: "/givekudos",

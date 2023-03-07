@@ -121,14 +121,20 @@ const LandingPage = () => {
                 </div>
               </div>
             ) : (
-              <>
-                <button className="btn" onClick={handleSignUp}>
+              <div className="flex gap-3">
+                <button
+                  className=" px-4 py-2  font-bold rounded shadow focus:outline-none focus:ring hover:ring focus:ring-opacity-50 bg-violet-400 focus:ring-violet-400 hover:ring-violet-400 text-gray-900"
+                  onClick={handleSignUp}
+                >
                   SignUp With Wallet
                 </button>
-                <button className="btn" onClick={handleLogin}>
+                <button
+                  className=" px-4 py-2 font-bold rounded shadow focus:outline-none focus:ring hover:ring focus:ring-opacity-50 bg-violet-400 focus:ring-violet-400 hover:ring-violet-400 text-gray-900"
+                  onClick={handleLogin}
+                >
                   Login With Wallet
                 </button>
-              </>
+              </div>
             )}
           </div>
         ) : (

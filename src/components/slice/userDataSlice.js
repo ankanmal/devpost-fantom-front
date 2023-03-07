@@ -6,6 +6,11 @@ const REGISTER_URL =
 const LOGIN_URL =
   "https://sour-curtain-production.up.railway.app/api/v1/auth/login";
 
+const SEND_SKILLS =
+  "https://sour-curtain-production.up.railway.app/api/v1/skill/user";
+
+const GET_SKILLS =
+  "http://sour-curtain-production.up.railway.app/api/v1/skill/user";
 export const registerUser = createAsyncThunk(
   "userData/registerUser",
   async (userInfo) => {
@@ -38,6 +43,41 @@ export const loginUser = createAsyncThunk(
   }
 );
 
+export const sendSkills = createAsyncThunk(
+  "userData/sendSkills",
+
+  async ({ values, tok }) => {
+    const data = await fetch(SEND_SKILLS, {
+      method: "POST",
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${tok}`,
+      },
+      body: JSON.stringify(values),
+    });
+    const json = await data.json();
+    return json;
+  }
+);
+
+export const getSkillsOfUser = createAsyncThunk(
+  "userData/getSkillsOfUser",
+
+  async (token) => {
+    const data = await fetch(GET_SKILLS, {
+      method: "GET",
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+    });
+    const json = await data.json();
+    return json;
+  }
+);
+
 const userDataSlice = createSlice({
   name: "userData",
   initialState: {
@@ -45,8 +85,12 @@ const userDataSlice = createSlice({
     firstName: null,
     lastName: null,
     userId: null,
+    token: null,
+    skills: null,
     registerStatus: "idle",
     loginStatus: "idle",
+    sendSkillStatus: "idle",
+    getSkillStatus: "idle",
   },
   reducers: {
     updateWalletAddress: (store, action) => {
@@ -75,9 +119,32 @@ const userDataSlice = createSlice({
         state.userId = action.payload.user.userId;
         state.firstName = action.payload.user.firstName;
         state.lastName = action.payload.user.lastName;
+        state.token = action.payload.token;
       })
       .addCase(loginUser.rejected, (state) => {
         state.loginStatus = "failed";
+      })
+      .addCase(sendSkills.pending, (state) => {
+        state.sendSkillStatus = "loading";
+      })
+      .addCase(sendSkills.fulfilled, (state, action) => {
+        state.sendSkillStatus = "succeeded";
+
+        state.skills = action.payload.skills.skills;
+      })
+      .addCase(sendSkills.rejected, (state) => {
+        state.sendSkillStatus = "failed";
+      })
+      .addCase(getSkillsOfUser.pending, (state) => {
+        state.getSkillStatus = "loading";
+      })
+      .addCase(getSkillsOfUser.fulfilled, (state, action) => {
+        state.getSkillStatus = "succeeded";
+
+        state.skills = action.payload.skills.skills;
+      })
+      .addCase(getSkillsOfUser.rejected, (state) => {
+        state.getSkillStatus = "failed";
       });
   },
 });
@@ -85,6 +152,9 @@ const userDataSlice = createSlice({
 export const { updateWalletAddress } = userDataSlice.actions;
 export default userDataSlice.reducer;
 
-export const loginStatus = (state) => state.loginStatus;
-export const registerStatus = (state) => state.registerStatus;
 export const userId = (state) => state.userData.userId;
+export const firstName = (state) => state.userData.firstName;
+export const lastName = (state) => state.userData.lastName;
+export const skills = (state) => state.userData.skills;
+export const walladd = (state) => state.userData.walletAdd;
+export const token = (state) => state.userData.token;
