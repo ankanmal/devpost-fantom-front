@@ -11,7 +11,6 @@ import {
 import { useNavigate } from "react-router-dom";
 
 import SkillsForm from "./SkillsForm";
-import GetKudosOfEachUser from "./GetKudosOfEachUser";
 
 const ProfilePage = () => {
   const fname = useSelector(firstName);
@@ -34,11 +33,17 @@ const ProfilePage = () => {
 
   return (
     <div className="bg-[#282c34] h-[92.4vh] pt-14">
-      <div className="flex justify-center mt-5">
-        <button className="m-5 bg-blue-400" onClick={() => goToKudos()}>
+      <div className="flex justify-center m-5 gap-5">
+        <button
+          className=" px-4 py-2 font-bold rounded shadow focus:outline-none focus:ring hover:ring focus:ring-opacity-50 bg-violet-400 focus:ring-violet-400 hover:ring-violet-400 text-gray-900"
+          onClick={() => goToKudos()}
+        >
           Give Kudos
         </button>
-        <button className="m-5 bg-blue-400" onClick={() => goToSearch()}>
+        <button
+          className=" px-4 py-2 font-bold rounded shadow focus:outline-none focus:ring hover:ring focus:ring-opacity-50 bg-violet-400 focus:ring-violet-400 hover:ring-violet-400 text-gray-900"
+          onClick={() => goToSearch()}
+        >
           Search
         </button>
       </div>
@@ -73,7 +78,6 @@ const ProfilePage = () => {
 
         <SkillsForm />
       </div>
-      <GetKudosOfEachUser />
     </div>
   );
 };

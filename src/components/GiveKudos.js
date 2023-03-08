@@ -12,8 +12,9 @@ const initialValues = {
 
 const MyForm = () => {
   const [projectLinks, setProjectLinks] = useState([""]);
-
+  // eslint-disable-next-line
   const [provider, setProvider] = useState();
+  // eslint-disable-next-line
   const [signer, setSigner] = useState();
   const [contract, setContract] = useState();
   const [account, setAccount] = useState("");
@@ -33,6 +34,7 @@ const MyForm = () => {
   };
   useEffect(() => {
     connect();
+    // eslint-disable-next-line
   }, []);
 
   let connect = async () => {
@@ -46,24 +48,26 @@ const MyForm = () => {
     }
   };
 
+  let plinks = [];
   const handleSubmit = async (values) => {
-    const combinedValues = { ...values, projectLinks };
-    alert(JSON.stringify(combinedValues, null, 2));
+    plinks = projectLinks.filter((link) => link.trim() !== "");
+    //const combinedValues = { ...values, plinks };
+    //alert(JSON.stringify(combinedValues, null, 2));
     // console.log(combinedValues);
     // // Add logic to handle form submission here
 
     if (!ethers.utils.isAddress(values.address)) {
-      console.log("Invalid address");
+      alert("Invalid Receiver Wallet Address");
       return;
     }
 
     if (!values.skill) {
-      console.log("Skill is required");
+      alert("Skill is required");
       return;
     }
 
-    if (projectLinks.length === 0) {
-      console.log("Project link is required");
+    if (plinks.length === 0) {
+      alert("Project link is required");
       return;
     }
 
@@ -71,7 +75,7 @@ const MyForm = () => {
     let skill = ethers.utils.formatBytes32String(values.skill);
 
     let projectLink = projectLinks; // Replace with the project link(s)
-
+    // eslint-disable-next-line
     let kudos = contract
       .giveKudos(address, skill, projectLink, { gasLimit: 300000 })
       .on("transactionHash", (hash) => {
@@ -108,7 +112,7 @@ const MyForm = () => {
           <Form className="container w-full max-w-xl p-8 mx-auto  space-y-6 rounded-md shadow bg-gray-900 ng-untouched ng-pristine ng-valid text-gray-100">
             <div>
               <label htmlFor="address" className="block mb-1 ml-1">
-                Address
+                Receiver Wallet Address
               </label>
               <Field
                 name="address"
@@ -158,7 +162,7 @@ const MyForm = () => {
                 </div>
               ))}
               <button type="button" onClick={addProjectLink}>
-                Add More
+                Add More Project Links
               </button>
             </div>
 
@@ -166,7 +170,7 @@ const MyForm = () => {
               type="submit"
               className="w-full px-4 py-2 font-bold rounded shadow focus:outline-none focus:ring hover:ring focus:ring-opacity-50 bg-violet-400 focus:ring-violet-400 hover:ring-violet-400 text-gray-900"
             >
-              Submit
+              Give Kudos
             </button>
           </Form>
         )}
@@ -175,7 +179,12 @@ const MyForm = () => {
   );
 };
 const GiveKudos = () => {
-  return <MyForm />;
+  return (
+    <div className="bg-[#282c34] h-[92.4vh] pt-14">
+      {" "}
+      <MyForm />
+    </div>
+  );
 };
 
 export default GiveKudos;

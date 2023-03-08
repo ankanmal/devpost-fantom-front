@@ -10,7 +10,9 @@ const initialValues = {
 };
 
 const MyForm = () => {
+  // eslint-disable-next-line
   const [provider, setProvider] = useState();
+  // eslint-disable-next-line
   const [signer, setSigner] = useState();
   const [contract, setContract] = useState();
   const [account, setAccount] = useState("");
@@ -30,6 +32,7 @@ const MyForm = () => {
   };
   useEffect(() => {
     connect();
+    // eslint-disable-next-line
   }, []);
 
   let connect = async () => {
@@ -57,23 +60,6 @@ const MyForm = () => {
       .catch((error) => {
         console.log(error);
       });
-    // const getKudos = async () => {
-    //   let skill = ethers.utils.formatBytes32String("react");
-    //   let a = await contract.getKudos(
-    //     "0xA4FC31F2Cf0fAF1faBe1e41e6bd7009A1296d03E",
-    //     skill
-    //   );
-    //   console.log(a);
-    // };
-    // let skill = ethers.utils.formatBytes32String("vue");
-    // contract
-    //   .getKudos("0xA4FC31F2Cf0fAF1faBe1e41e6bd7009A1296d03E", skill)
-    //   .then((result) => {
-    //     console.log(result);
-    //   })
-    //   .catch((error) => {
-    //     console.log(error);
-    //   });
   };
 
   return (
@@ -101,6 +87,7 @@ const MyForm = () => {
                     value={SKILL.find(
                       (option) => option.value.toLowerCase() === field.value
                     )}
+                    className="text-black"
                   />
                 )}
               </Field>
@@ -121,7 +108,7 @@ const MyForm = () => {
 
 const Search = () => {
   return (
-    <div>
+    <div className="bg-[#282c34] h-[92.4vh] pt-14">
       <MyForm />
     </div>
   );
