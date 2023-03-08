@@ -47,7 +47,7 @@ const MyForm = () => {
   };
   const handleSubmit = (values) => {
     const combinedValues = { ...values };
-    alert(JSON.stringify(combinedValues, null, 2));
+    //alert(JSON.stringify(combinedValues, null, 2));
 
     // console.log(combinedValues);
     // // Add logic to handle form submission here

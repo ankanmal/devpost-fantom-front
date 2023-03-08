@@ -166,7 +166,7 @@ const SignupForm = () => {
         }}
         validate={validate}
         onSubmit={(values) => {
-          alert(JSON.stringify(values, null, 2));
+          //alert(JSON.stringify(values, null, 2));
           dispatch(registerUser(values));
         }}
       >
