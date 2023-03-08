@@ -10,7 +10,7 @@ const SEND_SKILLS =
   "https://sour-curtain-production.up.railway.app/api/v1/skill/user";
 
 const GET_SKILLS =
-  "http://sour-curtain-production.up.railway.app/api/v1/skill/user";
+  "https://sour-curtain-production.up.railway.app/api/v1/skill/user";
 export const registerUser = createAsyncThunk(
   "userData/registerUser",
   async (userInfo) => {
@@ -106,6 +106,10 @@ const userDataSlice = createSlice({
       .addCase(registerUser.fulfilled, (state, action) => {
         state.registerStatus = "succeeded";
         console.log(action.payload);
+        state.userId = action.payload.user.userId;
+        state.firstName = action.payload.user.firstName;
+        state.lastName = action.payload.user.lastName;
+        state.token = action.payload.token;
       })
       .addCase(registerUser.rejected, (state) => {
         state.registerStatus = "failed";
@@ -116,10 +120,10 @@ const userDataSlice = createSlice({
       .addCase(loginUser.fulfilled, (state, action) => {
         state.loginStatus = "succeeded";
         console.log(action.payload);
-        state.userId = action.payload.user.userId;
-        state.firstName = action.payload.user.firstName;
-        state.lastName = action.payload.user.lastName;
-        state.token = action.payload.token;
+        state.userId = action.payload.user?.userId;
+        state.firstName = action.payload.user?.firstName;
+        state.lastName = action.payload.user?.lastName;
+        state.token = action.payload?.token;
       })
       .addCase(loginUser.rejected, (state) => {
         state.loginStatus = "failed";
@@ -130,7 +134,7 @@ const userDataSlice = createSlice({
       .addCase(sendSkills.fulfilled, (state, action) => {
         state.sendSkillStatus = "succeeded";
 
-        state.skills = action.payload.skills.skills;
+        state.skills = action.payload.skills?.skills;
       })
       .addCase(sendSkills.rejected, (state) => {
         state.sendSkillStatus = "failed";
@@ -141,7 +145,7 @@ const userDataSlice = createSlice({
       .addCase(getSkillsOfUser.fulfilled, (state, action) => {
         state.getSkillStatus = "succeeded";
 
-        state.skills = action.payload.skills.skills;
+        state.skills = action.payload.skills?.skills || [];
       })
       .addCase(getSkillsOfUser.rejected, (state) => {
         state.getSkillStatus = "failed";

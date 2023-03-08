@@ -41,6 +41,10 @@ const ProfilePage = () => {
             <div className="bg-gray-200 rounded-lg py-1 px-2 m-1">
               Fetching Skills
             </div>
+          ) : skill.length === 0 ? (
+            <div className="bg-gray-200 rounded-lg py-1 px-2 m-1">
+              Add skills to your profile
+            </div>
           ) : (
             skill.map((skil, index) => (
               <div key={index} className="bg-gray-200 rounded-lg py-1 px-2 m-1">
@@ -49,6 +53,7 @@ const ProfilePage = () => {
             ))
           )}
         </div>
+
         <SkillsForm />
       </div>
     </div>

@@ -1,67 +1,94 @@
-import React from "react";
-import { useFormik } from "formik";
+import React, { useState } from "react";
+import { Formik, Form, Field } from "formik";
 
-const SignupForm = () => {
-  // Note that we have to initialize ALL of fields with values. These
+const initialValues = {
+  address: "",
+  skill: "",
+};
 
-  // could come from props, but since we don’t want to prefill this form,
+const MyForm = () => {
+  const [projectLinks, setProjectLinks] = useState([""]);
 
-  // we just use an empty string. If we don’t do this, React will yell
+  const handleSubmit = (values) => {
+    const combinedValues = { ...values, projectLinks };
+    alert(JSON.stringify(combinedValues, null, 2));
+    console.log(combinedValues);
+    // Add logic to handle form submission here
+  };
 
-  // at us.
+  const addProjectLink = () => {
+    setProjectLinks([...projectLinks, ""]);
+  };
 
-  const formik = useFormik({
-    initialValues: {
-      firstName: "",
-
-      lastName: "",
-
-      email: "",
-    },
-
-    onSubmit: (values) => {
-      alert(JSON.stringify(values, null, 2));
-    },
-  });
-
+  const handleChangeProjectLink = (event, index) => {
+    const { value } = event.target;
+    setProjectLinks((prevLinks) => {
+      const newLinks = [...prevLinks];
+      newLinks[index] = value;
+      return newLinks;
+    });
+  };
   return (
-    <form onSubmit={formik.handleSubmit} className="flex flex-col">
-      <label htmlFor="firstName">First Name</label>
+    <Formik initialValues={initialValues} onSubmit={handleSubmit}>
+      {({ values, handleChange }) => (
+        <Form className="container w-full max-w-xl p-8 mx-auto  space-y-6 rounded-md shadow bg-gray-900 ng-untouched ng-pristine ng-valid text-gray-100">
+          <div>
+            <label htmlFor="address" className="block mb-1 ml-1">
+              Address
+            </label>
+            <Field
+              name="address"
+              type="text"
+              onChange={handleChange}
+              value={values.address}
+              className="block w-full p-2 rounded focus:outline-none focus:ring focus:ring-opacity-25 focus:ring-violet-400 bg-gray-800"
+            />
+          </div>
 
-      <input
-        id="firstName"
-        name="firstName"
-        type="text"
-        onChange={formik.handleChange}
-        value={formik.values.firstName}
-      />
+          <div>
+            <label htmlFor="skill" className="block mb-1 ml-1">
+              Skill
+            </label>
+            <Field
+              name="skill"
+              type="text"
+              onChange={handleChange}
+              value={values.skill}
+              className="block w-full p-2 rounded focus:outline-none focus:ring focus:ring-opacity-25 focus:ring-violet-400 bg-gray-800"
+            />
+          </div>
 
-      <label htmlFor="lastName">Last Name</label>
+          <div>
+            <label htmlFor="projectLinks">Project Links</label>
+            {projectLinks.map((link, index) => (
+              <div key={index}>
+                <Field
+                  name={`projectLinks[${index}]`}
+                  type="text"
+                  value={link}
+                  onChange={(event) => handleChangeProjectLink(event, index)}
+                  className="block w-full p-2 rounded focus:outline-none focus:ring focus:ring-opacity-25 focus:ring-violet-400 bg-gray-800 mb-2"
+                />
+              </div>
+            ))}
+            <button type="button" onClick={addProjectLink}>
+              Add More
+            </button>
+          </div>
 
-      <input
-        id="lastName"
-        name="lastName"
-        type="text"
-        onChange={formik.handleChange}
-        value={formik.values.lastName}
-      />
-
-      <label htmlFor="email">Email Address</label>
-
-      <input
-        id="email"
-        name="email"
-        type="email"
-        onChange={formik.handleChange}
-        value={formik.values.email}
-      />
-
-      <button type="submit">Submit</button>
-    </form>
+          <button
+            type="submit"
+            className="w-full px-4 py-2 font-bold rounded shadow focus:outline-none focus:ring hover:ring focus:ring-opacity-50 bg-violet-400 focus:ring-violet-400 hover:ring-violet-400 text-gray-900"
+          >
+            Submit
+          </button>
+        </Form>
+      )}
+    </Formik>
   );
 };
 const GiveKudos = () => {
-  return <SignupForm />;
+  return <MyForm />;
 };
 
 export default GiveKudos;
