@@ -22,8 +22,8 @@ const MyForm = () => {
     let signer = temp.getSigner();
     setSigner(signer);
     let KudosContract = new ethers.Contract(
-      "0xA4FC31F2Cf0fAF1faBe1e41e6bd7009A1296d03E",
-      abi.output.abi,
+      "0xd9145CCE52D386f254917e481eB44e9943F39138",
+      abi,
       signer
     );
     setContract(KudosContract);
@@ -49,12 +49,8 @@ const MyForm = () => {
     // console.log(combinedValues);
     // // Add logic to handle form submission here
 
-    let address = "0x3ddF04B31a78cf4CB20cFE577AD6eB0B4f789b53";
     contract
-      .getCertainKudos(address, [
-        ethers.utils.formatBytes32String("vue"),
-        ethers.utils.formatBytes32String("react"),
-      ])
+      .getUsersKudosSkill("0x7265616374")
       .then((result) => {
         console.log(result);
       })

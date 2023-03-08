@@ -8,8 +8,10 @@ import {
   token,
   walladd,
 } from "./slice/userDataSlice";
+import { useNavigate } from "react-router-dom";
 
 import SkillsForm from "./SkillsForm";
+import GetKudosOfEachUser from "./GetKudosOfEachUser";
 
 const ProfilePage = () => {
   const fname = useSelector(firstName);
@@ -22,9 +24,24 @@ const ProfilePage = () => {
   useEffect(() => {
     dispatch(getSkillsOfUser(tok));
   }, [tok, dispatch]);
+  const navigate = useNavigate();
+  const goToKudos = () => {
+    navigate("/givekudos");
+  };
+  const goToSearch = () => {
+    navigate("/search");
+  };
 
   return (
     <div className="bg-[#282c34] h-[92.4vh] pt-14">
+      <div className="flex justify-center mt-5">
+        <button className="m-5 bg-blue-400" onClick={() => goToKudos()}>
+          Give Kudos
+        </button>
+        <button className="m-5 bg-blue-400" onClick={() => goToSearch()}>
+          Search
+        </button>
+      </div>
       <div className="container w-full max-w-xl p-8 mx-auto  space-y-6 rounded-md shadow bg-gray-900 ng-untouched ng-pristine ng-valid ">
         <h1 className="block mb-1 ml-1 text-gray-100 text-center text-2xl">
           {fname} {lname}
@@ -56,6 +73,7 @@ const ProfilePage = () => {
 
         <SkillsForm />
       </div>
+      <GetKudosOfEachUser />
     </div>
   );
 };

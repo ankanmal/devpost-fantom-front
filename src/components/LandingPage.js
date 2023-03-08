@@ -53,7 +53,7 @@ const LandingPage = () => {
 
   useEffect(() => {
     if (userIdState !== null) {
-      navigate("/main");
+      navigate("/profile");
     }
   }, [navigate, userIdState]);
 
@@ -63,6 +63,7 @@ const LandingPage = () => {
   };
 
   const handleLogin = () => {
+    console.log("clicked login");
     setIsSigningUp(false);
     connectWallet();
   };

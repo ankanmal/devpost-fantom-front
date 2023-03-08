@@ -15,7 +15,7 @@ const Header = () => {
         </div>
       ) : (
         <div className="flex justify-between p-3  bg-green-600 text-white shadow-xl  h-[8%]">
-          <Link to={"/main"} className="text-2xl font-bold ">
+          <Link to={"/profile"} className="text-2xl font-bold ">
             {" "}
             StackkUp
           </Link>

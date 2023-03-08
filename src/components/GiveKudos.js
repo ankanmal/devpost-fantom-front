@@ -25,8 +25,8 @@ const MyForm = () => {
     let signer = temp.getSigner();
     setSigner(signer);
     let KudosContract = new ethers.Contract(
-      "0xA4FC31F2Cf0fAF1faBe1e41e6bd7009A1296d03E",
-      abi.output.abi,
+      "0xd9145CCE52D386f254917e481eB44e9943F39138",
+      abi,
       signer
     );
     setContract(KudosContract);
@@ -46,11 +46,26 @@ const MyForm = () => {
     }
   };
 
-  const handleSubmit = (values) => {
+  const handleSubmit = async (values) => {
     const combinedValues = { ...values, projectLinks };
     alert(JSON.stringify(combinedValues, null, 2));
     // console.log(combinedValues);
     // // Add logic to handle form submission here
+
+    if (!ethers.utils.isAddress(values.address)) {
+      console.log("Invalid address");
+      return;
+    }
+
+    if (!values.skill) {
+      console.log("Skill is required");
+      return;
+    }
+
+    if (projectLinks.length === 0) {
+      console.log("Project link is required");
+      return;
+    }
 
     let address = values.address;
     let skill = ethers.utils.formatBytes32String(values.skill);
@@ -59,6 +74,12 @@ const MyForm = () => {
 
     let kudos = contract
       .giveKudos(address, skill, projectLink, { gasLimit: 300000 })
+      .on("transactionHash", (hash) => {
+        console.log(`Transaction hash: ${hash}`);
+      })
+      .on("error", (error) => {
+        console.log(`Error: ${error}`);
+      })
       .then((result) => {
         console.log(result);
       })
@@ -117,6 +138,7 @@ const MyForm = () => {
                     value={SKILL.find(
                       (option) => option.value.toLowerCase() === field.value
                     )}
+                    className="text-black"
                   />
                 )}
               </Field>

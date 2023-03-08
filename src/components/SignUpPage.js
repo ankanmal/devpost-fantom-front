@@ -214,7 +214,7 @@ const SignUpPage = () => {
 
   useEffect(() => {
     if (userIdState !== null) {
-      navigate("/main");
+      navigate("/profile");
     }
   }, [navigate, userIdState]);
   return (

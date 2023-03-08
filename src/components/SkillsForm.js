@@ -27,7 +27,7 @@ const MyTextInput = ({ label, ...props }) => {
         isMulti
         components={animated}
         onChange={(value) => {
-          const skills = value.map((skill) => skill.value.toLowerCase());
+          const skills = value.map((skill) => skill.value);
           helpers.setValue(skills);
         }}
         onBlur={() => helpers.setTouched(true)}

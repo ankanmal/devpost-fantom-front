@@ -133,7 +133,7 @@ const userDataSlice = createSlice({
       })
       .addCase(sendSkills.fulfilled, (state, action) => {
         state.sendSkillStatus = "succeeded";
-
+        // console.log(action.payload);
         state.skills = action.payload.skills?.skills;
       })
       .addCase(sendSkills.rejected, (state) => {
