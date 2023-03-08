@@ -1,7 +1,9 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Formik, Form, useField } from "formik";
 import { useDispatch, useSelector } from "react-redux";
 import { registerUser } from "./slice/userDataSlice";
+import { userId } from "./slice/userDataSlice";
+import { useNavigate } from "react-router-dom";
 
 // const SignupForm = () => {
 
@@ -207,6 +209,14 @@ const SignupForm = () => {
 };
 
 const SignUpPage = () => {
+  const userIdState = useSelector(userId);
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    if (userIdState !== null) {
+      navigate("/main");
+    }
+  }, [navigate, userIdState]);
   return (
     <div className="bg-[#282c34] h-[92.5vh] pt-14  ">
       <SignupForm />

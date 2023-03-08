@@ -4,47 +4,6 @@ import { useNavigate } from "react-router-dom";
 import { loginUser, updateWalletAddress, userId } from "./slice/userDataSlice";
 import { useDispatch, useSelector } from "react-redux";
 
-// const LandingPage = () => {
-//   const navigate = useNavigate();
-//   const authenticateAndContinue = () => {
-//     console.log("btn clicked");
-//     //redirect("/main");
-//     navigate("/main");
-//   };
-//   const [haveMetamask, sethaveMetamask] = useState(false);
-
-//   useEffect(() => {
-//     const { ethereum } = window;
-//     const checkMetamaskAvailability = async () => {
-//       if (!ethereum) {
-//         sethaveMetamask(false);
-//       }
-//       sethaveMetamask(true);
-//     };
-//     checkMetamaskAvailability();
-//   }, []);
-
-//   return (
-//     <>
-//       <div className="flex justify-center mt-4">
-//         <div>
-//           <button
-//             className="bg-blue-700 text-white p-4 border rounded-full font-medium "
-//             onClick={() => authenticateAndContinue()}
-//           >
-//             Connect Your Wallet
-//           </button>
-//           {haveMetamask ? (
-//             <p>Metamask is Installed</p>
-//           ) : (
-//             <p>Please Install Metamask</p>
-//           )}
-//         </div>
-//       </div>
-//     </>
-//   );
-// };
-
 const LandingPage = () => {
   const [haveMetamask, sethaveMetamask] = useState(false);
   const [isSigningUp, setIsSigningUp] = useState(false);
